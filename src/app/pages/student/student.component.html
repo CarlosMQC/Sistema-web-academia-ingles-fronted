@@ -1,0 +1,75 @@
+<div class="container">
+  
+  <h2>{{ currentStudentId ? 'Editar Estudiante' : 'Registrar Nuevo Estudiante' }}</h2>
+  
+  <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label>Nombres:</label>
+      <input type="text" formControlName="firstName">
+      <span *ngIf="studentForm.get('firstName')?.invalid && studentForm.get('firstName')?.touched" style="color: red;">
+        El nombre es obligatorio.
+      </span>
+    </div>
+
+    <div>
+      <label>Apellidos:</label>
+      <input type="text" formControlName="lastName">
+      <span *ngIf="studentForm.get('lastName')?.invalid && studentForm.get('lastName')?.touched" style="color: red;">
+        El apellido es obligatorio.
+      </span>
+    </div>
+
+    <div>
+      <label>Correo Electrónico:</label>
+      <input type="email" formControlName="email">
+      <span *ngIf="studentForm.get('email')?.invalid && studentForm.get('email')?.touched" style="color: red;">
+        Ingrese un correo válido.
+      </span>
+    </div>
+
+    <div>
+      <label>Documento (DNI):</label>
+      <input type="text" formControlName="documentNumber">
+      <span *ngIf="studentForm.get('documentNumber')?.invalid && studentForm.get('documentNumber')?.touched" style="color: red;">
+        El documento debe tener 8 dígitos.
+      </span>
+    </div>
+
+    <button type="submit" [disabled]="studentForm.invalid">
+      {{ currentStudentId ? 'Actualizar' : 'Guardar' }}
+    </button>
+    
+    <button type="button" *ngIf="currentStudentId" (click)="cancelEdit()">
+      Cancelar
+    </button>
+  </form>
+
+  <hr>
+
+  <h2>Lista de Estudiantes</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>Correo Electrónico</th>
+        <th>Documento</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let student of students()">
+        <td>{{ student.idStudent }}</td>
+        <td>{{ student.firstName }}</td>
+        <td>{{ student.lastName }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.documentNumber }}</td>
+        <td>
+          <button (click)="editStudent(student)">Editar</button>
+          <button (click)="deleteStudent(student.idStudent)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
