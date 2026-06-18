@@ -1,0 +1,37 @@
+<div class="container">
+  <h2>Gestión de Matrículas</h2>
+  
+  <div class="action-bar">
+    <button class="btn-primary" routerLink="/enrollments/new">Crear Nueva Matrícula</button>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Estudiante</th>
+        <th>DNI</th>
+        <th>Curso</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of enrollments">
+        <td>{{ e.idEnrollment }}</td>
+        <td>{{ e.student.firstName }} {{ e.student.lastName }}</td>
+        <td>{{ e.student.dni }}</td>
+        <td>{{ e.course.nameCourse }}</td>
+        <td>
+          <span [class]="e.status ? 'status-active' : 'status-inactive'">
+            {{ e.status ? 'Activa' : 'Inactiva' }}
+          </span>
+        </td>
+        <td>
+          <button class="btn-edit" [routerLink]="['/enrollments/edit', e.idEnrollment]">Editar</button>
+          <button class="btn-delete" (click)="delete(e.idEnrollment)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
