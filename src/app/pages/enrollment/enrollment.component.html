@@ -21,7 +21,7 @@
         <td>{{ e.idEnrollment }}</td>
         <td>{{ e.student.firstName }} {{ e.student.lastName }}</td>
         <td>{{ e.student.dni }}</td>
-        <td>{{ e.course.nameCourse }}</td>
+        <td>{{ e.course.name }}</td>
         <td>
           <span [class]="e.status ? 'status-active' : 'status-inactive'">
             {{ e.status ? 'Activa' : 'Inactiva' }}

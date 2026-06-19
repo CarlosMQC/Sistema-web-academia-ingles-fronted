@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
 import { StudentService } from '../../../services/student.service';
 import { Student } from '../../../model/student';
 
 @Component({
   selector: 'app-student-edit',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './student-edit.component.html',
   styleUrls: ['./student-edit.component.css']
 })
@@ -22,9 +26,9 @@ export class StudentEditComponent implements OnInit {
   ) {
     this.form = new FormGroup({
       idStudent: new FormControl(0),
-      firstName: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      lastName: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      dni: new FormControl('', [Validators.required, Validators.maxLength(8), Validators.minLength(8)]),
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
+      dni: new FormControl('', [Validators.required]),
       status: new FormControl(true, [Validators.required])
     });
   }
@@ -37,21 +41,23 @@ export class StudentEditComponent implements OnInit {
     });
   }
 
-  initForm() {
+  async initForm() {
     if (this.isEdit) {
-      this.studentService.findById(this.id).subscribe(data => {
-        this.form = new FormGroup({
-          idStudent: new FormControl(data.idStudent),
-          firstName: new FormControl(data.firstName, [Validators.required, Validators.maxLength(50)]),
-          lastName: new FormControl(data.lastName, [Validators.required, Validators.maxLength(50)]),
-          dni: new FormControl(data.dni, [Validators.required, Validators.maxLength(8), Validators.minLength(8)]),
-          status: new FormControl(data.status, [Validators.required])
+      const data = await (this.studentService as any).findById(this.id);
+      
+      if (data) {
+        this.form.patchValue({
+          idStudent: data.idStudent,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          dni: data.dni,
+          status: data.status
         });
-      });
+      }
     }
   }
 
-  operate() {
+  async operate() {
     if (this.form.invalid) {
       return;
     }
@@ -65,19 +71,9 @@ export class StudentEditComponent implements OnInit {
     };
 
     if (this.isEdit) {
-      this.studentService.update(this.id, student).subscribe(() => {
-        this.studentService.findAll().subscribe(data => {
-          this.studentService.setStudentChange(data);
-          this.studentService.setMessageChange('Estudiante actualizado');
-        });
-      });
+      await (this.studentService as any).update(this.id, student);
     } else {
-      this.studentService.save(student).subscribe(() => {
-        this.studentService.findAll().subscribe(data => {
-          this.studentService.setStudentChange(data);
-          this.studentService.setMessageChange('Estudiante registrado');
-        });
-      });
+      await (this.studentService as any).save(student);
     }
 
     this.router.navigate(['/students']);

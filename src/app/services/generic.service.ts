@@ -2,7 +2,6 @@ import { signal, WritableSignal } from '@angular/core';
 
 export class GenericService<T> {
   protected baseUrl: string;
-  
   public dataSignal: WritableSignal<T[]> = signal([]);
 
   constructor(baseUrl: string) {
@@ -45,6 +44,7 @@ export class GenericService<T> {
       console.error(error);
     }
   }
+
   async update(id: number, item: T): Promise<void> {
     try {
       const response = await fetch(`${this.baseUrl}/${id}`, {

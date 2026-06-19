@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Student } from '../../model/student';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { StudentService } from '../../services/student.service';
+import { Student } from '../../model/student';
 
 @Component({
   selector: 'app-student',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './student.component.html',
   styleUrls: ['./student.component.css']
 })
@@ -11,26 +15,28 @@ export class StudentComponent implements OnInit {
 
   students: Student[] = [];
 
-  constructor(private studentService: StudentService) { }
+  constructor(
+    private studentService: StudentService,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
-    this.studentService.getStudentChange().subscribe(data => {
-      this.students = data;
-    });
-
-    this.studentService.findAll().subscribe(data => {
-      this.students = data;
-    });
+    this.loadStudents();
   }
 
-  delete(idStudent?: number) {
-    if (idStudent != null && confirm('¿Estás seguro de eliminar este estudiante?')) {
-      this.studentService.delete(idStudent).subscribe(() => {
-        this.studentService.findAll().subscribe(data => {
-          this.studentService.setStudentChange(data);
-          this.studentService.setMessageChange('Estudiante eliminado correctamente');
-        });
-      });
+  async loadStudents() {
+    await (this.studentService as any).findAll();
+    const data = (this.studentService as any).dataSignal();
+    
+    this.students = typeof data === 'function' ? data() : data;
+    
+    this.cdr.detectChanges();
+  }
+
+  async delete(id: number) {
+    if (confirm('¿Está seguro de eliminar este estudiante?')) {
+      await (this.studentService as any).delete(id);
+      this.loadStudents();
     }
   }
 }

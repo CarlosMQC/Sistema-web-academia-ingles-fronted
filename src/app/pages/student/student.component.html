@@ -1,37 +1,33 @@
-<div class="container">
-  <h2>Gestión de Estudiantes</h2>
-  
-  <div class="action-bar">
-    <button class="btn-primary" routerLink="/students/new">Crear Nuevo Estudiante</button>
-  </div>
+<h2>Gestión de Estudiantes</h2>
 
-  <table class="data-table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nombres</th>
-        <th>Apellidos</th>
-        <th>DNI</th>
-        <th>Estado</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let s of students">
-        <td>{{ s.idStudent }}</td>
-        <td>{{ s.firstName }}</td>
-        <td>{{ s.lastName }}</td>
-        <td>{{ s.dni }}</td>
-        <td>
-          <span [class]="s.status ? 'status-active' : 'status-inactive'">
-            {{ s.status ? 'Activo' : 'Inactivo' }}
-          </span>
-        </td>
-        <td>
-          <button class="btn-edit" [routerLink]="['/students/edit', s.idStudent]">Editar</button>
-          <button class="btn-delete" (click)="delete(s.idStudent)">Eliminar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<button class="btn-create" routerLink="/students/new">Crear Nuevo Estudiante</button>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombres</th>
+      <th>Apellidos</th>
+      <th>DNI</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let s of students">
+      <td>{{ s.idStudent }}</td>
+      <td>{{ s.firstName }}</td>
+      <td>{{ s.lastName }}</td>
+      <td>{{ s.dni }}</td>
+      <td>{{ s.status ? 'Activo' : 'Inactivo' }}</td>
+      <td>
+        <button class="btn-edit" [routerLink]="['/students/edit', s.idStudent]">Editar</button>
+        <button class="btn-delete" (click)="delete(s.idStudent)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="students.length === 0" style="margin-top: 20px; font-weight: bold; color: #666;">
+  Buscando estudiantes o no hay registros...
 </div>

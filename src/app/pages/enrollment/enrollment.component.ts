@@ -1,9 +1,13 @@
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Enrollment } from '../../model/enrollment';
 import { EnrollmentService } from '../../services/enrollment.service';
 
 @Component({
   selector: 'app-enrollment',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './enrollment.component.html',
   styleUrls: ['./enrollment.component.css']
 })
