@@ -44,7 +44,7 @@ export class StudentEditComponent implements OnInit {
 
   async initForm() {
     if (this.isEdit) {
-      const data = await (this.studentService as any).findById(this.id);
+      const data = await this.studentService.findById(this.id);
       
       if (data) {
         this.form.patchValue({
@@ -74,9 +74,9 @@ export class StudentEditComponent implements OnInit {
     };
 
     if (this.isEdit) {
-      await (this.studentService as any).update(this.id, student);
+      await this.studentService.update(this.id, student);
     } else {
-      await (this.studentService as any).save(student);
+      await this.studentService.save(student);
     }
 
     this.router.navigate(['/students']);

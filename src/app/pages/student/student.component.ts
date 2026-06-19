@@ -1,42 +1,32 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { StudentService } from '../../services/student.service';
-import { Student } from '../../model/student';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-student',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './student.component.html',
-  styleUrls: ['./student.component.css']
+  templateUrl: './student.component.html'
 })
 export class StudentComponent implements OnInit {
+  students = signal<any[]>([]);
 
-  students: Student[] = [];
+  constructor(private studentService: StudentService) {}
 
-  constructor(
-    private studentService: StudentService,
-    private cdr: ChangeDetectorRef
-  ) { }
-
-  ngOnInit(): void {
-    this.loadStudents();
+  async ngOnInit() {
+    await this.loadData();
   }
 
-  async loadStudents() {
-    await (this.studentService as any).findAll();
-    const data = (this.studentService as any).dataSignal();
-    
-    this.students = typeof data === 'function' ? data() : data;
-    
-    this.cdr.detectChanges();
+  async loadData() {
+    const data = await this.studentService.findAll();
+    this.students.set(data);
   }
 
   async delete(id: number) {
-    if (confirm('¿Está seguro de eliminar este estudiante?')) {
-      await (this.studentService as any).delete(id);
-      this.loadStudents();
+    if (confirm('¿Seguro que deseas eliminar este estudiante?')) {
+      await this.studentService.delete(id);
+      await this.loadData();
     }
   }
 }

@@ -1,6 +1,20 @@
-<nav>
-  <a routerLink="/students">Ver Estudiantes</a>
-  <a routerLink="/courses">Ver Cursos</a>
+<nav *ngIf="isLoggedIn()" style="padding: 15px 30px; background-color: #f8f9fa; border-bottom: 2px solid #9cd4ff; margin-bottom: 30px; display: flex; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+  <h2 style="margin: 0; color: #333; margin-right: 30px; font-family: sans-serif;">Luma Academy</h2>
+  
+  <div style="display: flex; gap: 15px;">
+    <a routerLink="/students" style="color: #0056b3; font-weight: bold; text-decoration: none; padding: 8px 15px; border-radius: 5px; background-color: #e9ecef; transition: 0.3s;">
+      Gestión de Estudiantes
+    </a>
+    <a routerLink="/courses" style="color: #0056b3; font-weight: bold; text-decoration: none; padding: 8px 15px; border-radius: 5px; background-color: #e9ecef; transition: 0.3s;">
+      Gestión de Cursos
+    </a>
+  </div>
+
+  <a (click)="logout()" style="cursor: pointer; margin-left: auto; color: #dc3545; font-weight: bold; text-decoration: none; padding: 8px 15px; border: 1px solid #dc3545; border-radius: 5px;">
+    Cerrar Sesión
+  </a>
 </nav>
 
-<router-outlet></router-outlet>
+<div style="padding: 0 30px;">
+  <router-outlet></router-outlet>
+</div>

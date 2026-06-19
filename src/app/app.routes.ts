@@ -1,16 +1,14 @@
 import { Routes } from '@angular/router';
+import { CourseComponent } from './pages/course/course.component';
 import { StudentComponent } from './pages/student/student.component';
 import { StudentEditComponent } from './pages/student/student-edit/student-edit.component';
-import { CourseComponent } from './pages/course/course.component';
-import { EnrollmentComponent } from './pages/enrollment/enrollment.component';
-import { EnrollmentEditComponent } from './pages/enrollment/enrollment-edit/enrollment-edit.component';
+import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: 'courses', component: CourseComponent },
   { path: 'students', component: StudentComponent },
   { path: 'students/new', component: StudentEditComponent },
   { path: 'students/edit/:id', component: StudentEditComponent },
-  { path: 'courses', component: CourseComponent },
-  { path: 'enrollments', component: EnrollmentComponent },
-  { path: 'enrollments/new', component: EnrollmentEditComponent },
-  { path: 'enrollments/edit/:id', component: EnrollmentEditComponent }
+  { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];

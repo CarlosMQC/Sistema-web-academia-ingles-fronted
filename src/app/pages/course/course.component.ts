@@ -28,7 +28,12 @@ export class CourseComponent implements OnInit {
 
   async findAll() {
     try {
-      const response = await fetch('http://localhost:9090/courses');
+      const token = localStorage.getItem('token');
+      const response = await fetch('http://localhost:9090/courses', {
+        headers: { 
+          'Authorization': `Bearer ${token}`
+        }
+      });
       if (response.ok) {
         const data = await response.json();
         this.courses.set(data);
@@ -44,11 +49,15 @@ export class CourseComponent implements OnInit {
     const data = this.courseForm.value;
     const url = data.idCourse ? `http://localhost:9090/courses/${data.idCourse}` : 'http://localhost:9090/courses';
     const method = data.idCourse ? 'PUT' : 'POST';
+    const token = localStorage.getItem('token');
 
     try {
       const response = await fetch(url, {
         method: method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify(data)
       });
 
@@ -78,9 +87,13 @@ export class CourseComponent implements OnInit {
 
   async delete(id: number) {
     if (confirm('¿Estás seguro de eliminar este curso?')) {
+      const token = localStorage.getItem('token');
       try {
         const response = await fetch(`http://localhost:9090/courses/${id}`, {
-          method: 'DELETE'
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
         });
         if (response.ok) {
           await this.findAll();

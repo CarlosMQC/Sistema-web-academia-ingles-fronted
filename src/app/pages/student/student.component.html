@@ -1,13 +1,14 @@
-<h2>Gestión de Estudiantes</h2>
-
-<button class="btn-main" routerLink="/students/new">Crear Nuevo Estudiante</button>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+  <h2 style="color: #333; margin: 0;">Lista de Estudiantes</h2>
+  <button class="btn-main" routerLink="/students/new">Crear Nuevo Estudiante</button>
+</div>
 
 <table class="data-table">
   <thead>
     <tr>
       <th>ID</th>
-      <th>Nombres</th>
-      <th>Apellidos</th>
+      <th>Nombre</th>
+      <th>Apellido</th>
       <th>DNI</th>
       <th>Email</th>
       <th>Estado</th>
@@ -15,7 +16,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let s of students">
+    <tr *ngFor="let s of students()">
       <td>{{ s.idStudent }}</td>
       <td>{{ s.firstName }}</td>
       <td>{{ s.lastName }}</td>
@@ -30,6 +31,6 @@
   </tbody>
 </table>
 
-<div *ngIf="students.length === 0" style="margin-top: 20px; font-weight: bold; color: #666;">
-  Buscando estudiantes o no hay registros...
+<div *ngIf="students().length === 0" style="margin-top: 20px; font-weight: bold; color: #666; text-align: center; padding: 20px; background: #f9f9f9; border-radius: 8px;">
+  No hay estudiantes registrados o no se pudieron cargar...
 </div>
