@@ -1,6 +1,6 @@
 <h2>Gestión de Estudiantes</h2>
 
-<button class="btn-create" routerLink="/students/new">Crear Nuevo Estudiante</button>
+<button class="btn-main" routerLink="/students/new">Crear Nuevo Estudiante</button>
 
 <table class="data-table">
   <thead>
@@ -9,6 +9,7 @@
       <th>Nombres</th>
       <th>Apellidos</th>
       <th>DNI</th>
+      <th>Email</th>
       <th>Estado</th>
       <th>Acciones</th>
     </tr>
@@ -19,6 +20,7 @@
       <td>{{ s.firstName }}</td>
       <td>{{ s.lastName }}</td>
       <td>{{ s.dni }}</td>
+      <td>{{ s.email }}</td>
       <td>{{ s.status ? 'Activo' : 'Inactivo' }}</td>
       <td>
         <button class="btn-edit" [routerLink]="['/students/edit', s.idStudent]">Editar</button>

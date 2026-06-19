@@ -29,6 +29,7 @@ export class StudentEditComponent implements OnInit {
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
       dni: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       status: new FormControl(true, [Validators.required])
     });
   }
@@ -51,6 +52,7 @@ export class StudentEditComponent implements OnInit {
           firstName: data.firstName,
           lastName: data.lastName,
           dni: data.dni,
+          email: data.email,
           status: data.status
         });
       }
@@ -67,6 +69,7 @@ export class StudentEditComponent implements OnInit {
       firstName: this.form.value['firstName'],
       lastName: this.form.value['lastName'],
       dni: this.form.value['dni'],
+      email: this.form.value['email'],
       status: this.form.value['status']
     };
 

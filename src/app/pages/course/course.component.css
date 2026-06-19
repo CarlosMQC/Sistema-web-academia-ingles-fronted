@@ -1,0 +1,55 @@
+/* Botón Principal */
+.btn-main {
+    background-color: #9cd4ff;
+    color: #333;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+.btn-main:hover { background-color: #7db0dd; }
+
+/* Botones de Tabla */
+.btn-edit { background-color: #ffc107; color: #000; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; margin-right: 5px; font-weight: bold; }
+.btn-edit:hover { background-color: #e0a800; }
+.btn-delete { background-color: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+.btn-delete:hover { background-color: #c82333; }
+
+/* Formularios */
+.form-group { margin-bottom: 15px; }
+.form-label { display: block; margin-bottom: 8px; font-weight: bold; color: #444; }
+.form-input, .form-select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+.form-input:focus, .form-select:focus {
+    border-color: #9cd4ff;
+    outline: none;
+}
+
+/* Tablas */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+.data-table th, .data-table td {
+    text-align: left;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+.data-table th {
+    background-color: #f4f6f8;
+    color: #333;
+    font-weight: bold;
+}
+.data-table tr:hover td { background-color: #f9f9f9; }

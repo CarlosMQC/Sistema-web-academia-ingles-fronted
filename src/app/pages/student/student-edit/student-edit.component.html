@@ -1,37 +1,35 @@
-<div class="container">
-  <h2>{{ isEdit ? 'Editar Estudiante' : 'Nuevo Estudiante' }}</h2>
+<h2>{{ isEdit ? 'Editar Estudiante' : 'Nuevo Estudiante' }}</h2>
 
-  <form [formGroup]="form" (ngSubmit)="operate()">
-    
-    <div class="form-group" *ngIf="isEdit">
-      <label>ID</label>
-      <input type="number" formControlName="idStudent" readonly class="readonly-input">
-    </div>
+<form [formGroup]="form" (ngSubmit)="operate()">
+  
+  <div class="form-group">
+    <label class="form-label">Nombres</label>
+    <input type="text" formControlName="firstName" class="form-input" placeholder="Ej. Carlos">
+  </div>
 
-    <div class="form-group">
-      <label>Nombres</label>
-      <input type="text" formControlName="firstName">
-    </div>
+  <div class="form-group">
+    <label class="form-label">Apellidos</label>
+    <input type="text" formControlName="lastName" class="form-input" placeholder="Ej. Cabanillas">
+  </div>
 
-    <div class="form-group">
-      <label>Apellidos</label>
-      <input type="text" formControlName="lastName">
-    </div>
+  <div class="form-group">
+    <label class="form-label">DNI</label>
+    <input type="text" formControlName="dni" class="form-input" placeholder="Número de 8 dígitos">
+  </div>
 
-    <div class="form-group">
-      <label>DNI</label>
-      <input type="text" formControlName="dni" maxlength="8">
-    </div>
+  <div class="form-group">
+    <label class="form-label">Correo Electrónico</label>
+    <input type="email" formControlName="email" class="form-input" placeholder="ejemplo@correo.com">
+  </div>
 
-    <div class="form-group checkbox-group">
-      <input type="checkbox" formControlName="status" id="statusCheck">
-      <label for="statusCheck">Estudiante Activo</label>
-    </div>
+  <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
+    <input type="checkbox" formControlName="status" style="width: 18px; height: 18px;">
+    <label class="form-label" style="margin-bottom: 0;">Estudiante Activo</label>
+  </div>
 
-    <div class="action-bar">
-      <button type="submit" class="btn-primary" [disabled]="form.invalid">Guardar</button>
-      <button type="button" class="btn-secondary" routerLink="/students">Cancelar</button>
-    </div>
+  <div style="margin-top: 20px;">
+    <button type="submit" class="btn-main" [disabled]="form.invalid">Guardar</button>
+    <button type="button" class="btn-secondary" routerLink="/students" style="margin-left: 10px;">Cancelar</button>
+  </div>
 
-  </form>
-</div>
+</form>

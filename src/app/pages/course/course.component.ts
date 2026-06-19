@@ -1,15 +1,16 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-course',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './course.component.html'
 })
 export class CourseComponent implements OnInit {
-  items = signal<any[]>([]);
+  courses = signal<any[]>([]);
   courseForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -30,7 +31,7 @@ export class CourseComponent implements OnInit {
       const response = await fetch('http://localhost:9090/courses');
       if (response.ok) {
         const data = await response.json();
-        this.items.set(data);
+        this.courses.set(data);
       }
     } catch (error) {
       console.error(error);
@@ -61,12 +62,18 @@ export class CourseComponent implements OnInit {
   }
 
   edit(course: any) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
     this.courseForm.patchValue({
       idCourse: course.idCourse,
       name: course.name,
       description: course.description,
       status: course.status
     });
+  }
+
+  cancelEdit() {
+    this.courseForm.reset({ status: true });
   }
 
   async delete(id: number) {
