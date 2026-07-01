@@ -5,7 +5,22 @@
     
     <div class="form-group">
       <label class="form-label">Nombre del Curso</label>
-      <input type="text" formControlName="name" class="form-input" placeholder="Ej. Inglés Básico">
+      <select formControlName="name" class="form-select">
+        <option value="" disabled selected>Seleccione un nivel o programa...</option>
+        
+        <option value="Inglés Básico (A1)">Inglés Básico (A1)</option>
+        <option value="Inglés Pre-Intermedio (A2)">Inglés Pre-Intermedio (A2)</option>
+        <option value="Inglés Intermedio (B1)">Inglés Intermedio (B1)</option>
+        <option value="Inglés Intermedio Alto (B2)">Inglés Intermedio Alto (B2)</option>
+        <option value="Inglés Avanzado (C1)">Inglés Avanzado (C1)</option>
+        <option value="Inglés Experto (C2)">Inglés Experto (C2)</option>
+        
+        <option value="Inglés Conversacional Fluido">Inglés Conversacional Fluido</option>
+        <option value="Inglés para Negocios (Business English)">Inglés para Negocios (Business English)</option>
+        <option value="Preparación Examen TOEFL">Preparación Examen TOEFL</option>
+        <option value="Preparación Examen IELTS">Preparación Examen IELTS</option>
+        <option value="Inglés para Niños (Kids)">Inglés para Niños (Kids)</option>
+      </select>
     </div>
 
     <div class="form-group">
