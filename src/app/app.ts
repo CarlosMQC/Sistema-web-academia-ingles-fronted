@@ -18,6 +18,18 @@ export class AppComponent {
     return this.router.url !== '/login' && this.router.url !== '/';
   }
 
+  isUserRole(role: string): boolean {
+    const token = localStorage.getItem('token');
+    if (!token) return false;
+    
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.roles && payload.roles.includes(role);
+    } catch (e) {
+      return false;
+    }
+  }
+
   logout() {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);

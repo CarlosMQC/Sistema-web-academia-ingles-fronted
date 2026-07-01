@@ -32,15 +32,37 @@ export class LoginComponent {
 
       if (response.ok) {
         const data = await response.json();
+        const token = data.token;
 
-        localStorage.setItem('token', data.token); 
+        localStorage.setItem('token', token); 
 
-        this.router.navigate(['/courses']); 
+        const payload = this.decodificarToken(token);
+
+        if (payload && payload.roles) {
+          if (payload.roles.includes('ADMIN') || payload.roles.includes('ROLE_ADMIN')) {
+            this.router.navigate(['/courses']); 
+          } else if (payload.roles.includes('STUDENT') || payload.roles.includes('ROLE_STUDENT')) {
+            this.router.navigate(['/mis-cursos']); 
+          } else {
+            this.router.navigate(['/']); 
+          }
+        } else {
+          this.router.navigate(['/']);
+        }
       } else {
         this.errorMessage = 'Credenciales incorrectas';
       }
     } catch (error) {
       this.errorMessage = 'Error al conectar con el servidor';
+    }
+  }
+
+  private decodificarToken(token: string): any {
+    try {
+      const payloadBase64 = token.split('.')[1];
+      return JSON.parse(atob(payloadBase64)); 
+    } catch (error) {
+      return null;
     }
   }
 }
